@@ -1,47 +1,79 @@
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useEffect, useState } from 'react'
 
-import { StatusBar } from 'expo-status-bar';
+import AddItem from './components/AddItem'
+import CustomModal from './components/Modal'
+import List from './components/List'
 
-export default function App() {
+export default function App( ) {
+    
+  const [textItem, setTextItem] = useState('');
+  const [itemList, setItemList] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [itemSelected, setItemSelected] = useState({});
+
+  const onHandlerChangeItem = (text) => setTextItem(text)
+  const onHandlerAddItem = () => {
+    console.log('se agrego el item', textItem)
+    setItemList(currentItems => [...currentItems, { id: Date.now(), value: textItem, completed: false}])
+    // setItemList({...itemList, id: Math.random()*10, value: textItem }) => hace lo mismo que la de arriba
+    setTextItem('')
+  }
+
+  const onHandlerDeleteItem = id => {
+    setItemList(currentItems => currentItems.filter(item => item.id !== id))
+    setItemSelected({})
+    setModalVisible(!modalVisible)
+  }
+  const onHandlerModal = id => {
+    setItemSelected(itemList.find(item => item.id === id))
+    setModalVisible(!modalVisible)
+  }
+
+  const onHandlerCompleteItem = id => {
+    let itemCompleted = itemList.findIndex((item) => item.id === id)
+    itemList[itemCompleted].completed = true
+    setItemList([...itemList])
+    setModalVisible(!modalVisible)
+  }
+  
+  // useEffect(() => {
+  //   // se ejectua todo el tiempo, NO SE USA ASI
+  // })
+    
+  // useEffect(() => {
+  //   // se ejecuta cuando se carga el componente
+  // }, [])
+  
+  // useEffect(() => {
+  //     // se ejecuta cuando se cambia el estado ITEMLIST
+  //     console.table(itemList)
+  //   }, [itemList])
+      
   return (
-    <View style={ styles.screen }>
-      <View style ={styles.inpuntContainer}>
-        <TextInput placeholder='Ingrese aqui' style={styles.inpunt} />
-        <Button title='Agregar' onPress={() => {}} />
-      </View>
-      <View>
-          <View style ={{padding: 20}}>
-            <Text  style={styles.inpunt} >hola </Text>
-          </View>
-          <View style ={styles.inpuntContainer}>
-            <TextInput placeholder='Ingrese aqui' style={styles.inpunt} />
-          </View>
-          <View style ={styles.inpuntContainer}>
-            <TextInput placeholder='Ingrese aqui' style={styles.inpunt} />
-          </View>
-          <View style ={styles.inpuntContainer}>
-            <TextInput placeholder='Ingrese aqui' style={styles.inpunt} />
-          </View>
-      </View>  
+    <View style={styles.screen}>
+      <CustomModal 
+        modalVisible={modalVisible}
+        onHandlerDeleteItem={onHandlerDeleteItem}
+        itemSelected={itemSelected}
+        onHandlerCompleteItem={onHandlerCompleteItem}
+      /> 
+      <AddItem 
+        textItem={textItem}
+        onHandlerAddItem={onHandlerAddItem}
+        onHandlerChangeItem={onHandlerChangeItem}
+      />
+      <List 
+        itemList={itemList}
+        onHandlerModal={onHandlerModal}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  screen:{
+  screen: {
+    marginTop: '10%',
     padding: 30,
   },
-  inpuntContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    },
-  inpunt: {
-    borderBottomColor: 'black',
-    borderBottomWidth: 1, 
-    width: '80%', 
-    height: 50,
-  },
-  
-});
-
+})
