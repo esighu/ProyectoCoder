@@ -14,18 +14,18 @@ export default function CustomModal(props) {
                 <View style={styles.modalView}>
                     <View style={styles.modalTitle}>
                         <Text>
-                            Mi modal
+                            Mi modal (Entega 2)
                         </Text>
                     </View>
                     <View style={styles.modalMessage}>
-                        <Text>Estas seguro que desea borrar ?</Text>
+                        <Text>Estas seguro que desea eliminar ?</Text>
                     </View>
                     <View style={styles.modalMessage}>
                         <Text style={styles.modalItem}>{itemSelected.value}</Text>
                     </View>
                     <View style={styles.modalButton}>
                         <Button onPress={() => onHandlerDeleteItem(itemSelected.id)} title='Confirmar' />
-                        <Button onPress={() => onHandlerCompleteItem(itemSelected.id)} title='Completar' />
+                        <Button onPress={() => onHandlerCompleteItem(itemSelected.id)} title='Completar(Tachado)' />
                     </View>
                 </View>
             </View>
@@ -38,10 +38,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0,0,0,0.5)'
+        backgroundColor: 'rgba(0,0,1,0.5)'
         },  
         modalView: {
-        backgroundColor: 'white',
+        backgroundColor: 'yellow',
         width: '80%',
         height: '50%',
         borderRadius: 10,
@@ -67,6 +67,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around'
         },
         modalItem: {
-        fontSize: 30
+        fontSize: 25
         }
 })

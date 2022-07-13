@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: 'black',
+        borderColor: 'red',
         borderRadius: 10,
         marginTop: '10%',
         height: 50,

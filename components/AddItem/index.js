@@ -1,4 +1,4 @@
-import { View, TextInput, Button, StyleSheet } from 'react-native'
+import { Button, StyleSheet, TextInput, View } from 'react-native'
 
 export default function AddItem(props) {
 
@@ -7,12 +7,12 @@ export default function AddItem(props) {
     return (
         <View style={styles.container}>
             <TextInput 
-                placeholder='Escribe aqui' 
+                placeholder='Escribe aqui la palabra' 
                 style={styles.input} 
                 value={textItem}
                 onChangeText={onHandlerChangeItem}  
             />
-            <Button title='Add'onPress={onHandlerAddItem} disabled={textItem.length < 1 ? true : false}/>
+            <Button title='Agregar'onPress={onHandlerAddItem} disabled={textItem.length < 1 ? true : false}/>
         </View>
     )
 }
