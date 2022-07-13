@@ -14,7 +14,7 @@ export default function App( ) {
 
   const onHandlerChangeItem = (text) => setTextItem(text)
   const onHandlerAddItem = () => {
-    console.log('se agrego el item', textItem)
+    console.log('se agrego la palabra', textItem)
     setItemList(currentItems => [...currentItems, { id: Date.now(), value: textItem, completed: false}])
     // setItemList({...itemList, id: Math.random()*10, value: textItem }) => hace lo mismo que la de arriba
     setTextItem('')
