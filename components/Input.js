@@ -1,31 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native'
-
-import Colors from '../constants/colors'
 import React from 'react'
+import {TextInput, StyleSheet} from 'react-native'
 
-const Header = props => {
-    const { title } = props
-
-    return (
-        <View style={styles.header}>
-            <Text style={styles.headerTitle}>{title}</Text>
-        </View>
-    )
-}
+const Input = props => (
+    <TextInput {...props} style={{ ...styles.input, ...props.style}} />
+)
 
 const styles = StyleSheet.create({
-    header: {
-        width: '100%',
-        height: 90,
-        paddingTop: 36,
-        backgroundColor: Colors.primary,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    headerTitle: {
-        color: '#ffa',
-        fontSize: 22,
+    input: {
+        height: 30,
+        borderBottomColor: 'grey',
+        borderBottomWidth: 1,
+        marginVertical: 10
     }
 })
 
-export default Header
+export default Input
