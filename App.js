@@ -1,79 +1,39 @@
-import { Button, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { useEffect, useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native';
 
-import AddItem from './components/AddItem'
-import CustomModal from './components/Modal'
-import List from './components/List'
+import AppLoading from 'expo-app-loading'
+import GameScreen from './pages/GameScreen';
+import Header from './components/Header';
+import StartGameScreen from './pages/StartGameScreen';
+import { useFonts } from 'expo-font'
+import { useState } from 'react';
 
-export default function App( ) {
-    
-  const [textItem, setTextItem] = useState('');
-  const [itemList, setItemList] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [itemSelected, setItemSelected] = useState({});
+export default function App() {
+  const [loaded] = useFonts({ EduBold: require('./assets/fonts/Edu-Bold.ttf') , EduRegular: require('./assets/fonts/Edu-Regular.ttf'), EduMedium: require('./assets/fonts/Edu-Medium.ttf'), EduSemiBold: require('./assets/fonts/Edu-SemiBold.ttf')})
+  const [userNumber, setUserNumber] = useState()
 
-  const onHandlerChangeItem = (text) => setTextItem(text)
-  const onHandlerAddItem = () => {
-    console.log('se agrego la palabra', textItem)
-    setItemList(currentItems => [...currentItems, { id: Date.now(), value: textItem, completed: false}])
-    // setItemList({...itemList, id: Math.random()*10, value: textItem }) => hace lo mismo que la de arriba
-    setTextItem('')
+  const handlerStartGame = selectedNumber => {
+    setUserNumber(selectedNumber)
   }
 
-  const onHandlerDeleteItem = id => {
-    setItemList(currentItems => currentItems.filter(item => item.id !== id))
-    setItemSelected({})
-    setModalVisible(!modalVisible)
-  }
-  const onHandlerModal = id => {
-    setItemSelected(itemList.find(item => item.id === id))
-    setModalVisible(!modalVisible)
+  let content = <StartGameScreen onStartGame={handlerStartGame} />
+
+  if (userNumber) {
+    content = <GameScreen userOption={userNumber} />
   }
 
-  const onHandlerCompleteItem = id => {
-    let itemCompleted = itemList.findIndex((item) => item.id === id)
-    itemList[itemCompleted].completed = true
-    setItemList([...itemList])
-    setModalVisible(!modalVisible)
-  }
-  
-  // useEffect(() => {
-  //   // se ejectua todo el tiempo, NO SE USA ASI
-  // })
-    
-  // useEffect(() => {
-  //   // se ejecuta cuando se carga el componente
-  // }, [])
-  
-  // useEffect(() => {
-  //     // se ejecuta cuando se cambia el estado ITEMLIST
-  //     console.table(itemList)
-  //   }, [itemList])
-      
+  if(!loaded) return <AppLoading />
+
   return (
-    <View style={styles.screen}>
-      <CustomModal 
-        modalVisible={modalVisible}
-        onHandlerDeleteItem={onHandlerDeleteItem}
-        itemSelected={itemSelected}
-        onHandlerCompleteItem={onHandlerCompleteItem}
-      /> 
-      <AddItem 
-        textItem={textItem}
-        onHandlerAddItem={onHandlerAddItem}
-        onHandlerChangeItem={onHandlerChangeItem}
-      />
-      <List 
-        itemList={itemList}
-        onHandlerModal={onHandlerModal}
-      />
+    <View style={styles.container}>
+      <Header title={'Adivina el numero'} />
+      {content}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    marginTop: '10%',
-    padding: 30,
+  container: {
+    flex: 1,
   },
-})
+});
+
