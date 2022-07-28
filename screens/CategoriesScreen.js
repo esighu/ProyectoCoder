@@ -6,7 +6,7 @@ export const CategoriesScreen = ({ navigation }) => {
     return (
         <View style={styles.screen}>
             <Text>BreadDetailScreen</Text>
-            <Button title='Go to detail' onPress={() => {navigation.navigate('Detail')}} />
+            <Button title='Vamos a Detalles' onPress={() => {navigation.navigate('Detalles')}} />
         </View>
     )
 }

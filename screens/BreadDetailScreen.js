@@ -6,7 +6,7 @@ export const BreadDetailScreen = ({ navigation }) => {
     return (
         <View style={styles.screen}>
             <Text>BreadDetailScreen</Text>
-            <Button title='Go to Category' onPress={() => {navigation.navigate('Bread', { title: 'Parametros'})}} />
+            <Button title='Vamos a Categoria' onPress={() => {navigation.navigate('Bread', { title: 'Parametros'})}} />
         </View>
     )
 }

@@ -18,18 +18,18 @@ const Logo = () => {
 const ShopNavigator = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Home" screenOptions={{
+            <Stack.Navigator initialRouteName="Inicio" screenOptions={{
                 headerStyle: {
                     backgroundColor: '#f4511e'
                 },
-                headerTintColor: '#fff',
+                headerTintColor: '#fef',
                 headerTitleStyle: {
                     fontWeight: 'bold'
                 }
             }}>
-                <Stack.Screen name='Home' component={CategoriesScreen} options={{ headerShown: false ,headerTitle: (props) => <Logo {...props} /> }}/>
+                <Stack.Screen name='Inicio' component={CategoriesScreen} options={{ headerShown: false ,headerTitle: (props) => <Logo {...props} /> }}/>
                 <Stack.Screen name='Bread' component={CategoryBreadScreen} options={({route}) => ({ headerTitle: route.params.title})}/>
-                <Stack.Screen name='Detail' component={BreadDetailScreen} />
+                <Stack.Screen name='Detalle' component={BreadDetailScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )
