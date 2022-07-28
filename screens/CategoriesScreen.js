@@ -5,7 +5,7 @@ import React from 'react'
 export const CategoriesScreen = ({ navigation }) => {
     return (
         <View style={styles.screen}>
-            <Text>BreadDetailScreen</Text>
+            <Text>Esta la pantalla de Detalles</Text>
             <Button title='Vamos a Detalles' onPress={() => {navigation.navigate('Detalles')}} />
         </View>
     )
